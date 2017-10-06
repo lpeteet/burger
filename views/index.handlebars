@@ -1,0 +1,29 @@
+<!-- the home template, can take in data from express render function -->
+
+<div>
+    <ul>
+        {{#each burgers }}
+        <li>{{name}}<span>
+            <a href= "/delete/{{name}}">
+                <button class="btn btn-info" id="table-button">
+                    <i class="fa fa-table" aria-hidden="true">
+                    </i>Submit</button>
+            </a>
+        </span></li>
+        {{/each}}
+    </ul>
+
+</div>
+<form action="/submitData" method="POST">
+	<textarea type="text" name="burgername"></textarea>
+    <br>
+	<button class="btn btn-info" type="submit">Submit</button>
+</form>
+
+{{!--
+    <a href= "/submitData" ><button class="btn btn-info" id="table-button">
+        <i class="fa fa-table" aria-hidden="true"></i>Submit</button>
+    </a>
+--}}
+
+

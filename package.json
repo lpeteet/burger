@@ -1,0 +1,24 @@
+{
+  "name": "burger",
+  "version": "1.0.0",
+  "description": "Homework Week-7 Friday (Was Thursday)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lpeteet/burger.git"
+  },
+  "author": "Larry S. Peteet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lpeteet/burger/issues"
+  },
+  "homepage": "https://github.com/lpeteet/burger#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.1",
+    "express-handlebars": "^3.0.0"
+  }
+}
