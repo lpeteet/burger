@@ -15,11 +15,6 @@ module.exports = function(app) {
         
         let fs = require("fs");
     
-        //Have we already created the output file?
-        // if (fs.existsSync("./basicOut.json")) {
-        //     console.log("basicOut Already Exists, no need to create");
-        // }
-        
         //   Also: fs.writeFileSync() && fs.appendFileSync()
         //Write the Output File now
         //fs.writeFileSync('./burgers.json', JSON.stringify(burgersIn, null, 4));
@@ -38,8 +33,8 @@ module.exports = function(app) {
 
         let fs = require("fs");
         //Does it exist?
-        if (!fs.existsSync("./basic.json")) {
-            console.log("./basic.json Does Not Exist, Not Reading it");
+        if (!fs.existsSync("./burgers.json")) {
+            console.log("./burgers.json Does Not Exist, Not Reading it");
         } else {
             //Read the File
             //var burgersTmp = require('./burgers.json')(app);

@@ -1,6 +1,32 @@
 <!-- the home template, can take in data from express render function -->
+<div class="container-fluid">
+  <h1>Hello World!</h1>
+  <p>Resize the browser window to see the effect.</p>
+  <div class="row">
+    <div class="col-sm-6">
+        <ul>
+            {{#each burgers }}
+            <li>{{name}}<span>
+                <a href= "/delete/{{name}}">
+                    <button class="btn btn-info" id="table-button">
+                        <i class="fa fa-table" aria-hidden="true">
+                        </i>Devour it!</button>
+                </a>
+            </span></li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="col-sm-6">
+        <ul>
+            {{#each eaten }}
+                <li>{{name}}</li>
+            {{/each}}
+        </ul>
 
-<div>
+  </div>
+</div>
+
+{{!-- <div>
     <ul>
         {{#each burgers }}
         <li>{{name}}<span>
@@ -14,7 +40,7 @@
     </ul>
 
 </div>
-<form action="/submitData" method="POST">
+ --}}<form action="/submitData" method="POST">
 	<textarea type="text" name="burgername"></textarea>
     <br>
 	<button class="btn btn-info" type="submit">Submit</button>
