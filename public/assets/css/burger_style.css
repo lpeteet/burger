@@ -6,7 +6,22 @@ body {
 ul {
     list-style-type: none;
 }
-
-a:link {
-    background-color: yellow;
+li {
+    /* background-color: yellow; */
+    color: red;
+    /* display:inline; */
+    padding-right:0px;
+}
+.footer {
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+}
+img {
+    margin-top: 10px;
+}
+input {
+    width: 250px;
 }

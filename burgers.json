@@ -1,1 +1,1 @@
-[{"name":"WORLD"},{"name":"NOW?"},{"name":"BRAND NEW"},{"name":"WORKING?"}]
+[{"id":0,"name":"Banana & Mayonnaise Burger","devoured":true},{"id":1,"name":"Ham & Swiss Burger","devoured":true},{"id":2,"name":"Double Cheese Burger","devoured":false},{"id":3,"name":"Garden Burger","devoured":true},{"id":4,"name":"Garden Burger","devoured":false}]

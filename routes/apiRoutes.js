@@ -9,17 +9,25 @@
 var tableData = {};
 var waitListData = {};
 
-// ===============================================================================
-// ROUTING
-// ===============================================================================
-
 module.exports = function(app) {
+
+  // ===============================================================================
+  // FUNCTIONS
+  // ===============================================================================
+
+  var reIndexJSONData = function (inArray) {
+    console.log("Inside reIndexJSONData(), inArray", inArray);
+
+    for (var i = 0; i < inArray.length; i++) {
+      inArray[i].id = i;
+    }
+
+    return inArray;
+
+  }; //Function reIndexJSONData()
 
   var WriteJSONData = function (burgersIn) {
     console.log("Inside WriteJSONData(), burgersIn", burgersIn);
-    
-    let fs = require("fs");
-
     
     //   Also: fs.writeFileSync() && fs.appendFileSync()
     //Write the Output File now
@@ -37,60 +45,65 @@ module.exports = function(app) {
       console.log("Inside ReadJSONData()");
       var burgersTmp = [];
 
-      let fs = require("fs");
       //Does it exist?
       if (!fs.existsSync("./burgers.json")) {
           console.log("./burgers.json Does Not Exist, Not Reading it");
       } else {
           //Read the File
           //var burgersTmp = require('./burgers.json')(app);
-          burgersTmp = JSON.parse(fs.readFileSync('./burgers.json', {encoding: 'utf8'}));
+          var tmp = fs.readFileSync('./burgers.json', {encoding: 'utf8'});
+          burgersTmp = JSON.parse(tmp);
           console.log("burgersTmp", burgersTmp);
       }
-          
-      return burgersTmp;
+
+      //Call reIndexJSONData to  Re-Index Array from 0 to n-1
+      return reIndexJSONData(burgersTmp);
 
   }; //Function ReadJSONData()
 
-  // API GET Requests
-  // Below code handles when users "visit" a page.
-  // In each of the below cases when a user visits a link
-  // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
-  // ---------------------------------------------------------------------------
+  // ===============================================================================
+  // ROUTING
+  // ===============================================================================
 
-  app.get("/delete/:name", (req, res) => {
-    console.log("Inside app.get(/delete/:name)");
+  app.get("/delete/:id", (req, res) => {
+    console.log("Inside app.get(/delete/:id)");
     //var deleteID = parseInt( req.params.id);
-    var deleteName = req.params.name;
+    var deleteID = req.params.id;
     
     //Input Fields Submitted would be req.body.inputname (where inputname is on the HTML Form\\)
    
-    console.log("Parameter name To Delete = '" + deleteName + "'");
+    console.log("Parameter ID To Delete = '" + deleteID + "'");
 
     var burgersEaten = [];
-    var burgerDeleted;
+    var burgersFresh = [];
     var burgers = ReadJSONData();
 
     for (var i = 0; i < burgers.length; i++) {
-      console.log("Does ", burgers[i].name + " == " + deleteName + "?");
-      if (burgers[i].name == deleteName) {
+      console.log("Does ", burgers[i].id + " == " + deleteID + "?");
+      if (burgers[i].id == deleteID) {
         console.log("YES IT DOES!");
-        //Remove This one and get the one Removed to add to burgersEaten Array
-        burgerDeleted = burgers.splice(i, 1);
-        burgerDeleted = burgerDeleted[0]
-        console.log("burgers After Deleting", burgers);
-        console.log("burgerDeleted", burgerDeleted);
-        burgersEaten.push(burgerDeleted);
-        console.log("burgersEaten After Deleting", burgersEaten);
+        burgers[i].devoured = true;
+        break
       }
-     }
-     WriteJSONData(burgers);
+    }
+    //Call reIndexJSONData to  Re-Index Array from 0 to n-1
+    burgers = reIndexJSONData(burgers);
+
+    WriteJSONData(burgers);
+
+    for (i = 0; i < burgers.length; i++) {
+      if (burgers[i].devoured) {
+        burgersEaten.push(burgers[i]);
+      } else {
+        burgersFresh.push(burgers[i]);
+      }
+    }
 
      res.render("index", {
-      // png: path.join(__dirname, "../public/assets/img/Burger.png"),
-      burgers: burgers,
+      burgers: burgersFresh,
       eaten: burgersEaten
-    });        
+    });
+
     // if (isNaN(deleteID)) {
     // Handle Invalid ID's such as Not a Number
     //   response.send("ID Parameter is Not A Number");
@@ -105,20 +118,6 @@ module.exports = function(app) {
     //   //redirect to home page
     //   res.redirect("/");
     // })
-  });
-
-  // API POST Requests
-  // Below code handles when a user submits a form and thus submits data to the server.
-  // In each of the below cases, when a user submits form data (a JSON object)
-  // ...the JSON is pushed to the appropriate JavaScript array
-  // (ex. User fills out a reservation request... this data is then sent to the server...
-  // Then the server saves the data to the tableData array)
-  // ---------------------------------------------------------------------------
-
-  app.post("/", function(req, res) {
-      console.log("Inside app.post(/api/tables)");
-      // Redirect to home page after Post
-      res.redirect("/");
   });
 
 };
