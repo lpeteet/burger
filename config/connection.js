@@ -9,6 +9,14 @@ var connection = mysql.createConnection({
   database: "burger"
 });
 
+var connectionJawsDB = mysql.createConnection({
+  port: 3306,
+  host: "ysp9sse09kl0tzxj.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+  user: "root",
+  password: "root",
+  database: "burger"
+});
+
 // Make connection.
 connection.connect(function(err) {
   if (err) {
